@@ -1,30 +1,33 @@
-﻿using library.Models;
+﻿
+using library.Models;
 using Npgsql;
 
 namespace library.Data;
 
+// Every SQL statement about members lives in this class.
 public class MemberRepository
 {
     private readonly NpgsqlDataSource _dataSource;
 
+    // ASP.NET Core provides the registered data source.
     public MemberRepository(NpgsqlDataSource dataSource)
     {
         _dataSource = dataSource;
     }
 
+    // Copies the current database row into a Member.
     private static Member ReadMember(NpgsqlDataReader reader)
     {
         return new Member
         {
             MemberId = reader.GetInt64(0),
             FullName = reader.GetString(1),
-            Email = reader.IsDBNull(2)
-                ? null
-                : reader.GetString(2),
+            Email = reader.IsDBNull(2) ? null : reader.GetString(2),
             MemberType = reader.GetString(3)
         };
     }
 
+    // READ: Get all members, sorted by full name.
     public async Task<List<Member>> GetAllAsync()
     {
         const string sql =
@@ -43,6 +46,8 @@ public class MemberRepository
 
         return members;
     }
+
+    // CREATE: Add a new member.
     public async Task AddAsync(Member member)
     {
         const string sql =
@@ -52,14 +57,58 @@ public class MemberRepository
 
         await using var command = _dataSource.CreateCommand(sql);
 
-        command.Parameters.AddWithValue(
-            "full_name", member.FullName);
-
+        command.Parameters.AddWithValue("full_name", member.FullName);
         command.Parameters.AddWithValue(
             "email", (object?)member.Email ?? DBNull.Value);
+        command.Parameters.AddWithValue("member_type", member.MemberType);
 
+        await command.ExecuteNonQueryAsync();
+    }
+
+    // READ: Find one member by ID, or return null.
+    public async Task<Member?> GetByIdAsync(long id)
+    {
+        const string sql =
+            "SELECT member_id, full_name, email, member_type " +
+            "FROM lending.member WHERE member_id = @id;";
+
+        await using var command = _dataSource.CreateCommand(sql);
+        command.Parameters.AddWithValue("id", id);
+
+        await using var reader = await command.ExecuteReaderAsync();
+
+        return await reader.ReadAsync() ? ReadMember(reader) : null;
+    }
+
+    // UPDATE: Change an existing member.
+    public async Task UpdateAsync(Member member)
+    {
+        const string sql =
+            "UPDATE lending.member " +
+            "SET full_name = @full_name, " +
+            "email = @email, " +
+            "member_type = @member_type " +
+            "WHERE member_id = @id;";
+
+        await using var command = _dataSource.CreateCommand(sql);
+
+        command.Parameters.AddWithValue("full_name", member.FullName);
         command.Parameters.AddWithValue(
-            "member_type", member.MemberType);
+            "email", (object?)member.Email ?? DBNull.Value);
+        command.Parameters.AddWithValue("member_type", member.MemberType);
+        command.Parameters.AddWithValue("id", member.MemberId);
+
+        await command.ExecuteNonQueryAsync();
+    }
+
+    // DELETE: Remove a member by ID.
+    public async Task DeleteAsync(long id)
+    {
+        const string sql =
+            "DELETE FROM lending.member WHERE member_id = @id;";
+
+        await using var command = _dataSource.CreateCommand(sql);
+        command.Parameters.AddWithValue("id", id);
 
         await command.ExecuteNonQueryAsync();
     }

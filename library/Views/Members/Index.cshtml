@@ -1,27 +1,31 @@
-﻿@model List<library.Models.Member>
+﻿
+@model List<library.Models.Member>
 
 @{
     ViewData["Title"] = "Members";
 }
 
-<h1>Library Members</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="mb-0">Library Members</h1>
+        <p class="text-muted mb-0">
+            @Model.Count members registered
+        </p>
+    </div>
 
-<p>@Model.Count members registered</p>
-
-<p>
     <a asp-action="Create" class="btn btn-primary">
         Add a member
     </a>
-</p>
+</div>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover align-middle">
     <thead class="table-dark">
         <tr>
-            <th>ID</th>
+            <th class="text-end" style="width:5rem">ID</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Member Type</th>
-            <th>Actions</th>
+            <th class="text-end" style="width:10rem">Actions</th>
         </tr>
     </thead>
 
@@ -29,13 +33,26 @@
         @foreach (var member in Model)
         {
             <tr>
-                <td>@member.MemberId</td>
+                <td class="text-end">@member.MemberId</td>
                 <td>@member.FullName</td>
                 <td>@(member.Email ?? "—")</td>
-                <td>@member.MemberType</td>
                 <td>
-                    @* Task 15 adds the Edit button here *@
-                    @* Task 16 adds the Delete button here *@
+                    <span class="badge text-bg-secondary">
+                        @member.MemberType
+                    </span>
+                </td>
+                <td class="text-end">
+                    <a asp-action="Edit"
+                       asp-route-id="@member.MemberId"
+                       class="btn btn-sm btn-outline-secondary">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@member.MemberId"
+                       class="btn btn-sm btn-outline-danger">
+                        Delete
+                    </a>
                 </td>
             </tr>
         }
