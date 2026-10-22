@@ -1,8 +1,48 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@* home page: a futuristic welcome and four big links *@
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero">
+    <span class="eyebrow">Library Lending System</span>
+    <h1>The library of the future,<br />today.</h1>
+    <p>Manage books, members, notes and feedback from one fast, simple dashboard.</p>
+</section>
+
+<div class="row g-4 mt-1">
+    @* link to the books list *@
+    <div class="col-sm-6 col-lg-3">
+        <a class="tile tile-books" asp-controller="Books" asp-action="Index">
+            <span class="emoji">📖</span>
+            <h2>Books</h2>
+            <p class="mb-0 text-muted">Browse the catalogue and manage titles and prices.</p>
+        </a>
+    </div>
+
+    @* link to the members list *@
+    <div class="col-sm-6 col-lg-3">
+        <a class="tile tile-members" asp-controller="Members" asp-action="Index">
+            <span class="emoji">👥</span>
+            <h2>Members</h2>
+            <p class="mb-0 text-muted">See who is registered and update their details.</p>
+        </a>
+    </div>
+
+    @* link to the notepad *@
+    <div class="col-sm-6 col-lg-3">
+        <a class="tile tile-notes" asp-controller="Notes" asp-action="Index">
+            <span class="emoji">📝</span>
+            <h2>Notes</h2>
+            <p class="mb-0 text-muted">Keep quick reminders for the library staff.</p>
+        </a>
+    </div>
+
+    @* link to the comments page *@
+    <div class="col-sm-6 col-lg-3">
+        <a class="tile tile-comment" asp-controller="Comments" asp-action="Index">
+            <span class="emoji">💬</span>
+            <h2>Comments</h2>
+            <p class="mb-0 text-muted">Tell us what to improve on the site.</p>
+        </a>
+    </div>
 </div>
