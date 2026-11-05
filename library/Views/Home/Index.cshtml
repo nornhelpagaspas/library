@@ -1,8 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@* home page: a warm welcome and two big links *@
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero">
+    <h1>Welcome to the Library</h1>
+    <p>Find a good book, keep track of who borrowed what, and take your time doing it.</p>
+</section>
+
+<div class="row g-4 justify-content-center mt-2">
+    @* link to the books list *@
+    <div class="col-md-5">
+        <a class="tile tile-books" asp-controller="Books" asp-action="Index">
+            <span class="emoji">📖</span>
+            <h2>Books</h2>
+            <p class="mb-0 text-muted">Browse the catalogue, add new titles or fix a price.</p>
+        </a>
+    </div>
+
+    @* link to the members list *@
+    <div class="col-md-5">
+        <a class="tile tile-members" asp-controller="Members" asp-action="Index">
+            <span class="emoji">🧑‍🤝‍🧑</span>
+            <h2>Members</h2>
+            <p class="mb-0 text-muted">See who is registered and update their details.</p>
+        </a>
+    </div>
 </div>

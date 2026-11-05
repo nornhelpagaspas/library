@@ -1,0 +1,62 @@
+﻿@* comments page: visitors tell us what to change, saved comments are listed below *@
+@model CommentsPage
+@{
+    ViewData["Title"] = "Comments";
+}
+
+<section class="hero pb-3">
+    <h1>Tell us what to improve</h1>
+    <p>Found something confusing or have an idea? Leave a comment, we read every one.</p>
+</section>
+
+@* thank you message after a comment is saved *@
+@if (TempData["Thanks"] != null)
+{
+    <div class="alert alert-success mx-auto" style="max-width:36rem">@TempData["Thanks"]</div>
+}
+
+@* the form posts to Create in CommentsController *@
+<form asp-action="Create" method="post" class="card card-body mx-auto" style="max-width:36rem">
+
+    @* name is optional *@
+    <div class="mb-3">
+        <label asp-for="NewComment.Name" class="form-label">Your name (optional)</label>
+        <input asp-for="NewComment.Name" class="form-control" placeholder="Anonymous" />
+        <span asp-validation-for="NewComment.Name" class="text-danger"></span>
+    </div>
+
+    @* message is required *@
+    <div class="mb-3">
+        <label asp-for="NewComment.Message" class="form-label">Your comment</label>
+        <textarea asp-for="NewComment.Message" class="form-control" rows="4"
+                  placeholder="What should we change?"></textarea>
+        <span asp-validation-for="NewComment.Message" class="text-danger"></span>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Send comment</button>
+    </div>
+</form>
+
+@* the saved comments, newest first *@
+<h2 class="h4 mt-5 mb-3 text-center">What others said</h2>
+
+@if (Model.Comments.Count == 0)
+{
+    <p class="text-muted text-center">No comments yet. Be the first!</p>
+}
+else
+{
+    <div class="mx-auto" style="max-width:36rem">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="card card-body mb-3">
+                <p class="mb-2">@comment.Message</p>
+                @* show Anonymous when no name was given *@
+                <small class="text-muted">
+                    @(comment.Name ?? "Anonymous") &middot; @comment.CreatedOn.ToLocalTime().ToString("MMM d, yyyy h:mm tt")
+                </small>
+            </div>
+        }
+    </div>
+}

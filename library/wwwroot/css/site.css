@@ -11,6 +11,232 @@ html {
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
+/* site.css : calm, friendly look for the Library Lending System */
+
+/* fonts: rounded and easy to read */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito:wght@400;600;700&display=swap");
+
+/* colors in one place so they are easy to change */
+:root {
+    --cream: #fbf7f0;
+    --sage: #dfeadd;
+    --sky: #dbe9f1;
+    --peach: #fbe3d3;
+    --teal: #3f7f78;
+    --teal-dark: #2f625c;
+    --ink: #2f3b3a;
+    --muted: #6f7f7c;
+    --line: #e6e0d4;
+    /* tell bootstrap to use our colors */
+    --bs-body-font-family: "Nunito", system-ui, sans-serif;
+    --bs-body-color: var(--ink);
+    --bs-primary: var(--teal);
+    --bs-primary-rgb: 63, 127, 120;
+    --bs-link-color: var(--teal);
+    --bs-link-hover-color: var(--teal-dark);
+}
+
+/* soft gradient background that stays put while you scroll */
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--ink);
+    background: radial-gradient(circle at 12% 8%, var(--peach) 0, transparent 38%), radial-gradient(circle at 88% 14%, var(--sky) 0, transparent 40%), radial-gradient(circle at 70% 95%, var(--sage) 0, transparent 45%), var(--cream);
+    background-attachment: fixed;
+}
+
+main {
+    flex: 1;
+}
+
+/* headings */
+h1, h2, h3 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+/* top bar: frosted glass look */
+.site-nav {
+    background: rgba(251, 247, 240, 0.75);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+}
+
+    .site-nav .navbar-brand {
+        font-family: "Fraunces", Georgia, serif;
+        font-weight: 700;
+        color: var(--teal-dark);
+        font-size: 1.35rem;
+    }
+
+    .site-nav .nav-link {
+        color: var(--ink);
+        font-weight: 600;
+        border-radius: 999px;
+        padding: 0.4rem 1rem;
+        transition: background 0.2s ease;
+    }
+
+        .site-nav .nav-link:hover {
+            background: var(--sage);
+        }
+
+/* cards and forms: white, rounded, gently lifted */
+.card {
+    border: 1px solid var(--line);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 8px 24px rgba(63, 127, 120, 0.08);
+}
+
+/* inputs */
+.form-control,
+.form-select {
+    border-radius: 0.7rem;
+    border-color: var(--line);
+    padding: 0.55rem 0.85rem;
+    background-color: #fffdf9;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--teal);
+        box-shadow: 0 0 0 0.2rem rgba(63, 127, 120, 0.18);
+    }
+
+.form-label {
+    font-weight: 600;
+}
+
+/* buttons: pill shaped */
+.btn {
+    border-radius: 999px;
+    font-weight: 700;
+    padding: 0.45rem 1.2rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.85rem;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--teal);
+    --bs-btn-border-color: var(--teal);
+    --bs-btn-hover-bg: var(--teal-dark);
+    --bs-btn-hover-border-color: var(--teal-dark);
+    --bs-btn-active-bg: var(--teal-dark);
+    --bs-btn-active-border-color: var(--teal-dark);
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: var(--teal-dark);
+    --bs-btn-border-color: var(--teal);
+    --bs-btn-hover-bg: var(--teal);
+    --bs-btn-hover-border-color: var(--teal);
+    --bs-btn-hover-color: #fff;
+}
+
+/* tables: sit inside a rounded white panel */
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(223, 234, 221, 0.35);
+    --bs-table-hover-bg: rgba(251, 227, 211, 0.45);
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 1.1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(63, 127, 120, 0.08);
+}
+
+    .table > thead.table-dark {
+        --bs-table-bg: var(--teal-dark);
+        --bs-table-color: #fff;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.8rem 1rem;
+        border-color: var(--line);
+    }
+
+/* badges */
+.badge.text-bg-secondary {
+    background-color: var(--sage) !important;
+    color: var(--teal-dark) !important;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.4em 0.8em;
+}
+
+.text-muted {
+    color: var(--muted) !important;
+}
+
+/* home page hero */
+.hero {
+    text-align: center;
+    padding: 3.5rem 1rem 2rem;
+}
+
+    .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        color: var(--teal-dark);
+    }
+
+    .hero p {
+        max-width: 34rem;
+        margin: 0.75rem auto 0;
+        color: var(--muted);
+        font-size: 1.15rem;
+    }
+
+/* the two big links on the home page */
+.tile {
+    display: block;
+    height: 100%;
+    padding: 2rem;
+    text-decoration: none;
+    color: var(--ink);
+    border-radius: 1.4rem;
+    border: 1px solid var(--line);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .tile:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px rgba(63, 127, 120, 0.15);
+        color: var(--ink);
+    }
+
+.tile-books {
+    background: linear-gradient(135deg, var(--sage), #f2f7ef);
+}
+
+.tile-members {
+    background: linear-gradient(135deg, var(--peach), #fdf1e9);
+}
+
+.tile .emoji {
+    font-size: 2.4rem;
+}
+
+.tile h2 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.6rem;
+}
+
+/* footer */
+.site-footer {
+    padding: 1.5rem 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
 
 html {
   position: relative;
