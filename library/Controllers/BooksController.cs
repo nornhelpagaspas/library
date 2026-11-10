@@ -32,7 +32,7 @@ public class BooksController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Book book)
     {
-        if (!ModelState.IsValid)                        // a required field was left empty
+        if (!ModelState.IsValid)
         {
             return View(book);
         }

@@ -1,31 +1,253 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+/* IT Library theme: dark "terminal" look. Only styling lives here; no page logic. */
+:root {
+    --it-bg: #0b1220;
+    --it-panel: #111a2e;
+    --it-border: #1f2c47;
+    --it-cyan: #22d3ee;
+    --it-green: #4ade80;
+    --it-amber: #fbbf24;
+    --it-red: #f87171;
+    --it-muted: #8b9ab8;
+    --it-mono: ui-monospace, "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
 }
 
 body {
-  margin-bottom: 60px;
+    background: var(--it-bg);
+    background-image: linear-gradient(rgba(34, 211, 238, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, .04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: #dbe4f5;
+    min-height: 100vh;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* top bar */
+.it-nav {
+    background: rgba(11, 18, 32, .92);
+    border-bottom: 1px solid var(--it-cyan) !important;
+    box-shadow: 0 0 18px rgba(34, 211, 238, .18);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    .it-nav .navbar-brand {
+        font-family: var(--it-mono);
+        font-weight: 700;
+        color: var(--it-green);
+        letter-spacing: .5px;
+    }
+
+    .it-nav .brand-prompt {
+        color: var(--it-cyan);
+    }
+
+    .it-nav .nav-link {
+        font-family: var(--it-mono);
+        color: #b6c3de !important;
+    }
+
+        .it-nav .nav-link:hover {
+            color: var(--it-cyan) !important;
+        }
+
+        .it-nav .nav-link::before {
+            content: "./";
+            color: var(--it-muted);
+        }
+
+/* headings read like a command prompt */
+.page-title {
+    font-family: var(--it-mono);
+    color: var(--it-cyan);
+    font-weight: 700;
+}
+
+    .page-title::before {
+        content: "> ";
+        color: var(--it-green);
+    }
+
+h2, .h5 {
+    font-family: var(--it-mono);
+    color: var(--it-green);
+}
+
+.text-muted {
+    color: var(--it-muted) !important;
+}
+
+/* tables */
+.it-table {
+    --bs-table-bg: var(--it-panel);
+    --bs-table-striped-bg: #0f1829;
+    --bs-table-hover-bg: #17233d;
+    border: 1px solid var(--it-border);
+}
+
+    .it-table thead th {
+        background: #0a1020 !important;
+        color: var(--it-cyan);
+        font-family: var(--it-mono);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: .78rem;
+        letter-spacing: .08em;
+        border-bottom: 2px solid var(--it-cyan);
+    }
+
+/* forms and cards */
+.it-card, .card {
+    background: var(--it-panel);
+    border: 1px solid var(--it-border);
+    border-radius: .5rem;
+}
+
+.it-card {
+    box-shadow: 0 0 0 1px rgba(34, 211, 238, .08), 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+.form-control, .form-select {
+    background: #0a1020;
+    border-color: var(--it-border);
+    color: #e6eefc;
+    font-family: var(--it-mono);
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--it-cyan);
+        box-shadow: 0 0 0 .2rem rgba(34, 211, 238, .2);
+        background: #0a1020;
+        color: #fff;
+    }
+
+.form-label {
+    font-family: var(--it-mono);
+    font-size: .85rem;
+    color: var(--it-muted);
+}
+
+/* buttons */
+.btn-primary {
+    background: var(--it-cyan);
+    border-color: var(--it-cyan);
+    color: #04121c;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background: #67e8f9;
+        border-color: #67e8f9;
+        color: #04121c;
+    }
+
+.btn-outline-primary {
+    color: var(--it-cyan);
+    border-color: var(--it-cyan);
+}
+
+.btn-outline-secondary {
+    color: #b6c3de;
+    border-color: #44557a;
+}
+
+.btn-outline-success {
+    color: var(--it-green);
+    border-color: var(--it-green);
+}
+
+.btn-outline-danger {
+    color: var(--it-red);
+    border-color: var(--it-red);
+}
+
+.btn-link {
+    color: var(--it-cyan);
+}
+
+/* loan status pills */
+.status-pill {
+    font-family: var(--it-mono);
+    letter-spacing: .04em;
+    border-radius: .25rem;
+}
+
+    .status-pill.text-bg-danger {
+        background: rgba(248, 113, 113, .15) !important;
+        color: var(--it-red) !important;
+        border: 1px solid var(--it-red);
+    }
+
+    .status-pill.text-bg-warning {
+        background: rgba(251, 191, 36, .15) !important;
+        color: var(--it-amber) !important;
+        border: 1px solid var(--it-amber);
+    }
+
+    .status-pill.text-bg-secondary {
+        background: rgba(74, 222, 128, .12) !important;
+        color: var(--it-green) !important;
+        border: 1px solid var(--it-green);
+    }
+
+/* messages */
+.alert-danger {
+    background: rgba(248, 113, 113, .1);
+    border: 1px solid var(--it-red);
+    border-left: 5px solid var(--it-red);
+    color: #fecaca;
+    font-family: var(--it-mono);
+}
+
+    .alert-danger::before {
+        content: "ERROR: ";
+        font-weight: 700;
+    }
+
+.text-danger {
+    color: var(--it-red) !important;
+    font-family: var(--it-mono);
+    font-size: .85rem;
+}
+
+/* home page */
+.hero {
+    border: 1px solid var(--it-border);
+    border-left: 4px solid var(--it-cyan);
+    background: var(--it-panel);
+    border-radius: .5rem;
+    padding: 2rem;
+}
+
+    .hero .cursor {
+        display: inline-block;
+        width: .6ch;
+        background: var(--it-green);
+        animation: blink 1s steps(1) infinite;
+    }
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.tile {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+}
+
+    .tile:hover {
+        border-color: var(--it-cyan);
+        transform: translateY(-2px);
+        transition: .15s;
+    }
+
+    .tile .tile-code {
+        font-family: var(--it-mono);
+        color: var(--it-cyan);
+    }
+
+footer.it-footer {
+    border-top: 1px solid var(--it-border);
+    color: var(--it-muted);
+    font-family: var(--it-mono);
+    font-size: .8rem;
 }

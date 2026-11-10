@@ -1,8 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero mb-4">
+    <p class="text-muted mb-1" style="font-family:ui-monospace,Consolas,monospace">user@it-library:~$ ./start</p>
+    <h1 class="page-title display-5">Information Technology Library<span class="cursor">&nbsp;</span></h1>
+    <p class="lead mb-0">Programming, networks, databases and security: one place to lend the books, track the members and watch the due dates.</p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-3">
+        <a class="tile card card-body" asp-controller="Books" asp-action="Index">
+            <div class="tile-code">/books</div>
+            <h2 class="h5 mt-2">Catalogue</h2>
+            <p class="text-muted mb-0">Every title, category and price.</p>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a class="tile card card-body" asp-controller="Members" asp-action="Index">
+            <div class="tile-code">/members</div>
+            <h2 class="h5 mt-2">Members</h2>
+            <p class="text-muted mb-0">Students, faculty and how many books each has out.</p>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a class="tile card card-body" asp-controller="Loans" asp-action="Index">
+            <div class="tile-code">/loans</div>
+            <h2 class="h5 mt-2">Loans</h2>
+            <p class="text-muted mb-0">Borrow, return and spot what is overdue.</p>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a class="tile card card-body" asp-controller="Notes" asp-action="Index">
+            <div class="tile-code">/notes</div>
+            <h2 class="h5 mt-2">Notes</h2>
+            <p class="text-muted mb-0">Reminders for the library staff.</p>
+        </a>
+    </div>
 </div>

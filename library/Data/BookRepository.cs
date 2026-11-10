@@ -15,7 +15,7 @@ public class BookRepository
     }
 
     // Copies the current row of the reader into a Book.
-    // The positions 0 to 3 match the column order in both SELECTs above.
+    // The positions 0 to 3 match the column order in the SELECTs.
     private static Book ReadBook(NpgsqlDataReader reader)
     {
         return new Book
@@ -37,6 +37,7 @@ public class BookRepository
         // The command borrows a connection; 'await using' gives it back when the method ends.
         await using var command = _dataSource.CreateCommand(sql);
         await using var reader = await command.ExecuteReaderAsync();
+
         while (await reader.ReadAsync())        // once for each row
         {
             books.Add(ReadBook(reader));
